@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef ICOMMAND_H
+#define ICOMMAND_H
 #include "App.h"
 
 class ICommand {
@@ -9,4 +10,4 @@ public:
     virtual ~ICommand() {}
 };
 
-
+#endif

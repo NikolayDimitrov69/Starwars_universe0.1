@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef COMMANDS_H
+#define COMMANDS_H
 #include "ICommand.h"
 
 //! Основни команди:
@@ -266,3 +267,5 @@ public:
 
     virtual void execute();
 };
+
+#endif

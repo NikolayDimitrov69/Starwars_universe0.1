@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef JEDI_H
+#define JEDI_H
 #include <iostream>
 #include <string>
 
@@ -88,3 +89,5 @@ public:
 };
 
 std::ostream& operator<<(std::ostream&, const Jedi&);
+
+#endif

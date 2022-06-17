@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef APP_H
+#define APP_H
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -162,3 +163,5 @@ public:
 std::ostream& operator << (std::ostream&, const Jedis&);
 
 std::ostream& operator << (std::ostream&, const Planets&);
+
+#endif
