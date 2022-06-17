@@ -1,7 +1,5 @@
 ﻿#include <iostream>
-#include "App.h"
-#include "Jedi.h"
-#include "Command.h"
+#include "Commands.h"
 void PrintLogo() {
 	std::cout << "         ___________________     ____          ___________\n";
 	std::cout << "        /                   |   /    \\        |           \\ \n";
@@ -42,7 +40,7 @@ void Exe() {
 			{
 				command->execute();
 			}
-			delete[] command;// dali?
+			delete command;
 		}	
 		//! Викаме функция, която чисти вектор arguments, по този начин избягваме използването на един и същ аргумент/и няколко пъти.
 		app.ArgumentVectorErase();

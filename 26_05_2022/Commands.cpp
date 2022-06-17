@@ -1,79 +1,5 @@
-﻿#include "Command.h"
+﻿#include "Commands.h"
 
-ICommand* ICommand::create(App* app) {
-    if (app->getCommand() == "open")
-    {
-        return new CommandOpen(app);
-    }
-	else if (app->getCommand() == "close")
-	{
-		return new CommandClose(app);
-	}
-	else if (app->getCommand() == "save")
-	{
-		return new CommandSave(app);
-	}
-	else if (app->getCommand() == "saveas")
-	{
-		return new CommandSaveAs(app);
-	}
-	else if (app->getCommand() == "help")
-	{
-		return new CommandHelp(app);
-	}
-	else if (app->getCommand() == "exit")
-	{
-		return new CommandExit(app);
-	}
-	else if (app->getCommand() == "add_planet")
-	{
-		return new CommandAddPlanet(app);
-	}
-	else if (app->getCommand() == "create_jedi")
-	{
-		return new CommandCreateJedi(app);
-	}
-	else if (app->getCommand() == "remove_jedi")
-	{
-		return new CommandRemoveJedi(app);
-	}
-	else if (app->getCommand() == "promote_jedi")
-	{
-		return new CommandPromoteJedi(app);
-	}
-	else if (app->getCommand() == "demote_jedi")
-	{
-		return new CommandDemoteJedi(app);
-	}
-	else if (app->getCommand() == "get_strongest_jedi")
-	{
-		return new CommandGetStrongestJedi(app);
-	}
-	else if (app->getCommand() == "get_youngest_jedi")
-	{
-		return new CommandGetYougnestJedi(app);
-	}
-	else if (app->getCommand() == "get_most_used_saber_color")
-	{
-		return new CommandMostUsedSaberColor(app);
-	}
-	else if (app->getCommand() == "print_planet")
-	{
-		return new CommandPrintPlanet(app);
-	}
-	else if (app->getCommand() == "print_jedi")
-	{
-		return new CommandPrintJedi(app);
-	}
-	else if (app->PlanetsExists(app->getCommand()))
-	{
-		return new CommandPlanetPlanet(app);
-	}
-    else
-    {
-        return nullptr;
-    }
-}
 
 bool CommandOpen::validate() {
 	if (app->getArgumentSize() != 1)
@@ -99,7 +25,7 @@ void CommandOpen::execute() {
 	app->setStatus("open");
 	std::cout << "Succsessfully opened " << app->getCurrentFile() << ".\n";
 	std::fstream file;
-	
+
 	//! Създава файл с въведеното име, ако не съществува. Ползва се апенд, за да не се изтрие съдържанието във файла.
 	file.open(app->getCurrentFile() + ".txt", std::ios::app);
 	if (file.is_open())
@@ -138,7 +64,7 @@ void CommandOpen::execute() {
 					case 6: jedi.setStrenght(std::stod(token));
 						break;
 					}
-				}	
+				}
 				app->pushbackJedi(jedi);
 			}
 			if (line.substr(0, 7) == "Planet ")
@@ -190,13 +116,18 @@ void CommandSave::execute() {
 		{
 			file << app->printJediVector();
 		}
-		
+
 		file.close();
 	}
 	std::cout << "Successfully saved " << app->getCurrentFile() << ".\n";
 }
 
 bool CommandSaveAs::validate() {
+	if (app->getArgumentSize() != 1)
+	{
+		std::cout << "Argument error. Corrent usage: saveas <filename/directory>\n";
+		return false;
+	}
 	return CommandSave(app).validate();
 }
 
@@ -254,7 +185,7 @@ bool CommandAddPlanet::validate()
 	{
 		std::cout << "You must first open a file before adding a new planet.\n";
 		return false;
-	}	
+	}
 	if (app->getArgumentSize() != 1)
 	{
 		std::cout << "Argument error. Corrent usage: add_planet <planet_name>\n";
@@ -324,7 +255,7 @@ bool CommandCreateJedi::validate()
 		std::cout << "Invalid input for strenght. Strenght must be a nubmer higher than 0!\n";
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -332,7 +263,7 @@ void CommandCreateJedi::execute()
 {
 	Jedi jedi(planetarg, namearg, rankarg, std::stoi(agearg), saberarg, std::stod(strenghtarg));
 	app->pushbackJedi(jedi);
-	app->setStatus("changed"); 
+	app->setStatus("changed");
 	std::cout << "Succsessfully added jedi " << namearg << " to planet " << planetarg << ".\n";
 }
 
@@ -348,7 +279,7 @@ bool CommandRemoveJedi::validate()
 		std::cout << "Argument error. Corrent usage: remove_jedi <jedi_name> <planet_name> \n";
 		return false;
 	}
-	planetarg = app->getArgumentNumber(1); 
+	planetarg = app->getArgumentNumber(1);
 	namearg = app->getArgumentNumber(0);
 	if (!app->PlanetsExists(planetarg))
 	{
@@ -626,12 +557,12 @@ bool CommandPrintJedi::validate()
 void CommandPrintJedi::execute()
 {
 	Jedi jedi = app->getJedi(namearg);
-	std::cout << "Planet: " << jedi.getPlanet() 
-			  << "\nName: " << jedi.getName() 
-			  << "\nRank: " << jedi.getRankName(jedi.getRank()) 
-			  << "\nAge: " << jedi.getAge() 
-			  << "\nSaber Color: " << jedi.getSaberColorName(jedi.getSaberColor()) 
-			  << "\nStrenght: " << jedi.getStrenght() << '\n';
+	std::cout << "Planet: " << jedi.getPlanet()
+		<< "\nName: " << jedi.getName()
+		<< "\nRank: " << jedi.getRankName(jedi.getRank())
+		<< "\nAge: " << jedi.getAge()
+		<< "\nSaber Color: " << jedi.getSaberColorName(jedi.getSaberColor())
+		<< "\nStrenght: " << jedi.getStrenght() << '\n';
 }
 
 bool CommandPlanetPlanet::validate()
@@ -649,7 +580,7 @@ bool CommandPlanetPlanet::validate()
 	planetarg = app->getArgumentNumber(0);
 	if (!app->PlanetsExists(planetarg))
 	{
-		std::cout << "Planet " << planetarg << " does not exist.\n"; 
+		std::cout << "Planet " << planetarg << " does not exist.\n";
 		return false;
 	}
 	if (!app->PlanetIsInahbitet(app->getCommand()))

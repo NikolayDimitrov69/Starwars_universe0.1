@@ -152,7 +152,7 @@ public:
 
 	void PrintInhabitants2(std::string, std::string);
 
-	void selectionSort(Jedi*, int );
+	void selectionSort(std::vector<Jedi>&, int );
 
 	void swap(Jedi*, Jedi*);
 

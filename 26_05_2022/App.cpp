@@ -229,48 +229,42 @@ std::string App::getMostUsedColor(std::string planet, unsigned rank){
 
 void App::PrintInhabitants(std::string planet) 
 {
-	Jedi* array{ new Jedi[jedis.size()]{} };
 	for (unsigned rank = 0; rank < 8; rank++)
 	{
-		unsigned j = 0;
+		std::vector<Jedi> array;
 		for (unsigned i = 0; i < jedis.size(); i++)
 		{
 			if (planet == jedis[i].getPlanet() && jedis[i].getRank() == rank)
 			{
-				array[j] = jedis[i];
-				j++;
+				array.push_back(jedis[i]);
 			}
 		}
-		selectionSort(array, j);
-		for (unsigned i = 0; i < j; i++)
+		selectionSort(array, array.size());
+		for (unsigned i = 0; i < array.size(); i++)
 		{
 			std::cout << "Name: " << array[i].getName() << '\n';
 		}
 	}
-	delete[] array;
 }
 
 void App::PrintInhabitants2(std::string planet, std::string planet2)
 {
-	Jedi* array{ new Jedi[jedis.size()]{} };
-	unsigned j = 0;
+	std::vector<Jedi> array;
 	for (unsigned i = 0; i < jedis.size(); i++)
 	{
 		if (planet == jedis[i].getPlanet() || planet2 == jedis[i].getPlanet())
 		{
-			array[j] = jedis[i];
-			j++;
+			array.push_back(jedis[i]);
 		}
 	}
-	selectionSort(array, j);
-	for (unsigned i = 0; i < j; i++)
+	selectionSort(array, array.size());
+	for (unsigned i = 0; i < array.size(); i++)
 	{
 		std::cout << "Name: " << array[i].getName() << '\n';
 	}
-	delete[] array;
 }
 
-void App::selectionSort(Jedi * arr, int n)
+void App::selectionSort(std::vector<Jedi>& arr, int n)
 {
 	int i, j, min_idx;
 

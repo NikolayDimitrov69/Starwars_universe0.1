@@ -141,14 +141,16 @@
   <ItemGroup>
     <ClCompile Include="26_05_2022.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="ICommand.cpp" />
+    <ClCompile Include="Commands.cpp" />
     <ClCompile Include="Jedi.cpp" />
     <ClCompile Include="Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="26_05_2022.h" />
-    <ClInclude Include="Command.h" />
+    <ClInclude Include="ICommand.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="Commands.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Jedi.h" />
   </ItemGroup>
