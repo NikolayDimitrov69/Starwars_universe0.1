@@ -49,4 +49,5 @@ std::string alpha_sort(std::string str1, std::string str2) {
 			return str2;
 		}
 	}
+	return str1.size() < str2.size() ? str1 : str2;
 }
